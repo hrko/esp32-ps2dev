@@ -646,9 +646,9 @@ int PS2Keyboard::reply_to_host(uint8_t host_cmd) {
 #if defined(_ESP32_PS2DEV_DEBUG_)
       _ESP32_PS2DEV_DEBUG_.println("PS2Keyboard::reply_to_host: Set/reset LEDs command received");
 #endif  // _ESP32_PS2DEV_DEBUG_
-      ack();
+      while (write(0xAF) != 0) delay(1);
       if (!read(&val)) {
-        ack();
+         while (write(0xAF) != 0) delay(1);
         _led_scroll_lock = ((val & 1) != 0);
         _led_num_lock = ((val & 2) != 0);
         _led_caps_lock = ((val & 4) != 0);
