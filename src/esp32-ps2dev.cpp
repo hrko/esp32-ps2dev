@@ -565,7 +565,8 @@ void PS2Keyboard::begin() {
 
   xSemaphoreTake(_mutex_bus, portMAX_DELAY);
   delayMicroseconds(BYTE_INTERVAL_MICROS);
-  while (write(0xAA) != 0) delay(200);
+  delay(200);
+  write(0xAA);
   xSemaphoreGive(_mutex_bus);
 }
 bool PS2Keyboard::data_reporting_enabled() { return _data_reporting_enabled; }
