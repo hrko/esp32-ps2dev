@@ -1,5 +1,6 @@
 # ESP32 PS/2 mouse/keyboard emulation library
 This library allows ESP32 to emulate ps2 keyboard and/or mouse.
+PC fixes have been added from previous forkes to make it more reliable during post.
 
 # Electrical connections
 
