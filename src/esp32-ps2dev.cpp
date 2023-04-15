@@ -624,10 +624,8 @@ int PS2Keyboard::reply_to_host(uint8_t host_cmd) {
       _ESP32_PS2DEV_DEBUG_.println("PS2Keyboard::reply_to_host: Get device id command received");
 #endif  // _ESP32_PS2DEV_DEBUG_
       ack();
-      write(0xAB);
-      delayMicroseconds(BYTE_INTERVAL_MICROS);
-      write(0x83);
-      delayMicroseconds(BYTE_INTERVAL_MICROS);
+      while (write(0xAB) != 0) delay(1); // ensure ID gets writed, some hosts may be sensitive
+      while (write(0x83) != 0) delay(1); // this is critical for combined ports (they decide mouse/kb on this)
       break;
     case Command::SET_SCAN_CODE_SET:  // set scan code set
 #if defined(_ESP32_PS2DEV_DEBUG_)
